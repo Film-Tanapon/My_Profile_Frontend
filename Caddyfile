@@ -1,0 +1,12 @@
+:80 {
+    root * /srv
+    encode gzip zstd
+    @backend path /api/* /uploads/* /health /admin /admin/*
+    handle @backend {
+        reverse_proxy {$BACKEND_UPSTREAM:host.docker.internal:3001}
+    }
+    handle {
+        try_files {path} /index.html
+        file_server
+    }
+}
