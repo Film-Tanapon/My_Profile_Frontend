@@ -35,10 +35,10 @@ npm run dev
 
 | ไฟล์ | หน้าที่ |
 |---|---|
-| `src/App.jsx` | โหลดข้อมูล หน้าแรก รายการ และ hash routes |
-| `src/RecordDetail.jsx` | รายละเอียด Project/Intern/Event รูปภาพ และลิงก์ |
-| `src/App.css`, `src/Details.css` | Layout รูปแบบตัวอักษร และ responsive |
-| `src/theme.js` | สีพื้นหลัง สีจุด และสีตัวอักษรจากข้อมูล backend |
+| `src/pages/PortfolioPage.jsx` | หน้าแรกและ hash routes |
+| `src/pages/RecordDetail.jsx` | รายละเอียด Project/Intern/Event รูปภาพ และลิงก์ |
+| `src/styles/App.css`, `src/styles/Details.css` | Layout รูปแบบตัวอักษร และ responsive |
+| `src/utils/theme.js` | สีพื้นหลัง สีจุด และสีตัวอักษรจากข้อมูล backend |
 | `vite.config.ts` | Vite และ proxy ระหว่างพัฒนา |
 | `Dockerfile` | Build ด้วย Node แล้วเสิร์ฟ dist ด้วย Caddy |
 | `Caddyfile` | เสิร์ฟ frontend และส่งต่อ backend |
@@ -97,3 +97,16 @@ docker compose logs --tail=100 frontend
 - พอร์ตชน: เปลี่ยน FRONTEND_PORT และปรับปลายทาง Tunnel
 
 ไฟล์ .env, node_modules, dist และ artifacts ไม่ต้อง commit ขึ้น Git เก็บ package-lock.json, source และไฟล์ Docker ไว้ใน repository
+
+## การจัดโค้ด frontend
+
+- src/App.jsx: จุดประกอบหน้าเว็บ
+- src/pages/: หน้าหลักและหน้ารายละเอียด
+- src/components/: ProjectCard, TimelineCard และ Description
+- src/hooks/: โหลดข้อมูลด้วย usePortfolioData
+- src/services/: API และ URL รูปจาก backend
+- src/utils/: คำนวณอายุ สี วันที่ และลิงก์รายละเอียด
+- src/config/: ข้อมูล Profile สำรอง
+- src/styles/: CSS ที่โหลดจาก main.tsx
+
+แก้รูปแบบรายการใน components แก้เนื้อหาหน้าใน pages แก้การเรียก API ใน services/hooks และแก้ styles ในโฟลเดอร์ styles

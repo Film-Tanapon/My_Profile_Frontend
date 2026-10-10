@@ -1,13 +1,10 @@
 import { useState } from "react";
 
-export const detailHref = (type, record) => `#/${type}/${type === "projects" ? record.slug : type === "interns" ? record.internId : record.eventId}`;
-export const assetUrl = url => url?.startsWith("/uploads/") ? `${(import.meta.env.VITE_API_URL || "").replace(/\/$/, "")}${url}` : url;
-export const dateLabel = value => value ? new Intl.DateTimeFormat("th-TH", { day: "numeric", month: "short", year: "numeric" }).format(new Date(value)) : "ปัจจุบัน";
+import { detailHref, dateLabel } from "../utils/records";
+import { assetUrl } from "../services/api";
 const safeLink = url => /^(https?:\/\/|mailto:|\/)/i.test(url || "") ? url : undefined;
 
-export function Description({ text }) {
-  return <div className="detail-prose">{(text || "").split(/\n\s*\n/).filter(Boolean).map((paragraph, index) => <p key={index}>{paragraph.split(/(https?:\/\/[^\s]+)/g).map((part, i) => /^https?:\/\//.test(part) ? <a key={i} href={part} target="_blank" rel="noreferrer">{part}</a> : part)}</p>)}</div>;
-}
+import Description from "../components/Description";
 
 export default function RecordDetail({ type, record, data }) {
   const [photo, setPhoto] = useState(null);
